@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,15 +12,17 @@
         
 
           <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'logout_page' %}">logout</a>
+          <a class="nav-link inactive" aria-current="page" href="{% url 'logout_page' %}">logout</a>
         </li>
+        {% if request.user.user_type == 'admin' %}
          <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=" {% url 'panding_list' %} ">panding_list</a>
+          <a class="nav-link inactive" aria-current="page" href=" {% url 'panding_list' %} ">panding_list</a>
         </li>
+        {% endif %}
 
 
          <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href=" {% url 'chnge_pass' %} ">change_pass</a>
+          <a class="nav-link inactive" aria-current="page" href=" {% url 'chnge_pass' %} ">change_pass</a>
         </li>
 
           

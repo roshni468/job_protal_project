@@ -4,7 +4,7 @@ from users_auth_app.models import*
 
 
 class CandidateProfileModel(models.Model):
-    employer_user=models.OneToOneField(CustomUserModel , on_delete=models.CASCADE)
+    employer_user=models.OneToOneField(CustomUserModel , on_delete=models.CASCADE ,null=True , related_name='candidate_profile')
     full_name=models.CharField(max_length=100,null=True)
     phone=models.CharField(max_length=100,null=True)
     address=models.CharField(max_length=100,null=True)

@@ -81,6 +81,18 @@
 
   <div class="login-container">
     <h2>Login</h2>
+
+    {% comment %} just message show korrr code  {% endcomment %}
+    {% if messages %}
+     
+      {% for message in messages %}
+       
+        {{message}}
+     
+
+      {% endfor %}
+    {% endif %}
+  {% comment %} end {% endcomment %}
     <form action="{% url 'login_page' %}" method="POST">
       {% csrf_token %}
       <label for="username">username</label>

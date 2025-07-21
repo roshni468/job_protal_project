@@ -66,28 +66,30 @@
                 <th>phone_number</th>
                 <th>user_type</th>
                 <th>STATUS</th>
+                <th>Action</th>
                
 
 
             </tr>
         </thead>
         <tbody>
-            {% for pending in pending_user %}
+            {% for pending in pandingUser %}
             <tr>
                 <td>{{ pending.username }}</td>
                 <td>{{ pending.email }}</td>
                 <td>{{ pending.phone }}</td>
                 <td>{{ pending.user_type }}</td>
+                <td>{{ pending.pending_status }}</td>
 
                 <td>
-                    <form action=" {% url 'approveUser' panding.id %} " method="POST" style="display:inline;">
+                    <form action=" {% url 'acceptUser' pending.id %} " method="POST" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success btn-sm">Approve</button>
 
-                    <form action=" {% url 'Reject' panding.id %}" method="POST" style="display:inline;">
+                    <form action=" {% url 'Reject' pending.id %}" method="POST" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success btn-sm">Reject</button>
-                </td>
+                </td> 
             </tr>
             {% endfor %}
         </tbody>

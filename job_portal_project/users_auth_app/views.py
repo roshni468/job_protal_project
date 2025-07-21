@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import update_session_auth_hash
 from users_auth_app.models import*
+from employer_app.models import EmployerProfileModel
+from candidate_app.models import CandidateProfileModel
 
 # Create your views here.
 # home_page
@@ -55,6 +57,9 @@ def login_page(request):
         if user:
             login(request, user)
             return redirect('home_page')
+        else:
+            messages.error(request, 'Invalid username or password.')
+            return redirect('login_page')
       
     return render(request, 'login.html')
 
@@ -87,27 +92,46 @@ def chnge_pass(request):
 # panding list
 
 def panding_list(request):
-    pandigUser=PendingAcountModel.objects.all()
-    
-    return render(request,'panding_list.html',{'pending':pandigUser})
+    pandingUser=PendingAcountModel.objects.all()
 
-def approveUser(request, id):
+    context={
+        'pandingUser': pandingUser,
+    }
+
+    return render(request,'panding_list.html',context)
+# accept button
+def acceptUser(request, id):
     if request.method == 'POST':
-        panding=PendingAcountModel.objects.get(id=id)
+        panding_data=PendingAcountModel.objects.get(id=id)
+        if panding_data:
+            user_data=CustomUserModel.objects.create_user(
+                username=panding_data.username,
+                password=panding_data.phone,
+                email=panding_data.email,
+                user_type=panding_data.user_type,
+            )
+        if user_data:
+            if panding_data.user_type == 'employer':
+                EmployerProfileModel.objects.create(
+                    employer_user=user_data,
+                    phone=panding_data.phone,
+                    email=panding_data.email,
+                )
+            elif panding_data.user_type == 'candidate':
+                CandidateProfileModel.objects.create(
+                    employer_user=user_data,
+                    phone=panding_data.phone,
+                    email=panding_data.email,
+                )
+        panding_data.delete()
 
-        CustomUserModel.objects.create_user(
-            username=panding.username,
-            password=panding.phone,
-            email=panding.email,
-            user_type=panding.user_type,
-        )
-        panding.delete()
     return redirect('panding_list')
 
 def Reject(request,id):
-    if request.method =='POST':
-        panding=PendingAcountModel.objects.get(id=id)
-        panding.delete()
+    # if request.method =='POST':
+    #     panding_data=PendingAcountModel.objects.get(id=id)
+    #     if panding_data:
+    #         panding_data.delete()
     return redirect('panding_list')
 
 

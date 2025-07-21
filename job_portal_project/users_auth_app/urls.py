@@ -8,7 +8,7 @@ urlpatterns = [
     path('logout_page/',logout_page,name="logout_page"),
     path('chnge_pass/',chnge_pass,name="chnge_pass"),
     path('panding_list/',panding_list,name="panding_list"),
-    path('approveUser/<str:id>',approveUser,name="approveUser"),
+    path('acceptUser/<str:id>',acceptUser,name="acceptUser"),
     path('Reject/<str:id>',Reject,name="Reject"),
 
 
