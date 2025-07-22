@@ -126,13 +126,39 @@ def acceptUser(request, id):
         panding_data.delete()
 
     return redirect('panding_list')
-
+# reject button
 def Reject(request,id):
-    # if request.method =='POST':
-    #     panding_data=PendingAcountModel.objects.get(id=id)
-    #     if panding_data:
-    #         panding_data.delete()
+    panding_data=PendingAcountModel.objects.get(id=id)
+    panding_data.pending_status ='rejected'
+    panding_data.save()
+       
     return redirect('panding_list')
+
+# profile
+def profile(request):
+
+    return render (request,'profile.html')
+
+
+
+# edit_ profile
+def edit_profile(request,id):
+    if request.user.user_type == 'employer' :
+        em_data=EmployerProfileModel.objects.get(id=id)
+
+        context={
+                'em_data':em_data
+            }
+    if request.user.user_type == 'candidate' :
+        can_data=CandidateProfileModel.objects.get(id=id)
+
+        context={
+                'can_data':can_data
+            }
+    return render (request,'edit_profile.html',context)
+
+
+
 
 
 

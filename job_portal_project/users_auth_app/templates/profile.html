@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+
+{% block body %}
+ 
+  <h2>registered user: {{ request.user.user_type }}</h2>
+
+  {% if request.user.user_type == 'employer' %}
+    <img src="{{request.user.employer_profile.company_logo.url}} " height="100">
+    <p>Company Name:{{request.user.employer_profile.company_name}} </p>
+    <p>about_company:{{request.user.employer_profile.about_company}} </p>
+  
+    <p>location:{{request.user.employer_profile.location}} </p>
+
+    <a href=" {% url 'edit_profile' request.user.employer_profile.id %} ">Edit profile </a>
+  
+   
+  
+
+
+  {% endif %}
+ 
+{% endblock body %}

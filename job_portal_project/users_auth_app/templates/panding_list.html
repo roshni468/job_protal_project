@@ -82,13 +82,12 @@
                 <td>{{ pending.pending_status }}</td>
 
                 <td>
-                    <form action=" {% url 'acceptUser' pending.id %} " method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
-
-                    <form action=" {% url 'Reject' pending.id %}" method="POST" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success btn-sm">Reject</button>
+                    {% if pending.pending_status == 'rejected' %}
+                        rejected
+                    {% else %}
+                    <a href=" {% url 'acceptUser' %} ">Accept</a>
+                    <a href=" {% url 'Reject' %} ">Reject</a>
+                    {% endif %}
                 </td> 
             </tr>
             {% endfor %}

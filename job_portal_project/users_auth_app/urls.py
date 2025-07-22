@@ -10,6 +10,8 @@ urlpatterns = [
     path('panding_list/',panding_list,name="panding_list"),
     path('acceptUser/<str:id>',acceptUser,name="acceptUser"),
     path('Reject/<str:id>',Reject,name="Reject"),
+    path('profile/',profile, name="profile"),
+    path('edit_profile/<str:id>',edit_profile, name="edit_profile"),
 
 
 ]
